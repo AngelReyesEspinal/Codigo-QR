@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Quick Response Reader</title>
+        <script type="text/javascript" src="instascan.min.js"></script>
+        <link rel="shortcut icon" type="image/x-icon" href="icono.ico" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+        <style>
+            body{
+                background: url('379143.jpg');
+                background-size: 100%;
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+            }
+    
+            .left{
+                margin-left: 400px;
+                border-radius: 90px 90px 90px 90px;
+            }
+
+            .contenido{
+                color:white !important;
+                margin-left: 440px;
+                font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+                text-shadow: 1px 1px 1px black;
+            }
+
+            .up{
+                margin-top: 420px;
+                margin-left: -130px !important;
+            }
+        </style>
+    </head>
+
+    <body>
+        <main>
+            <h1 class="contenido">Coloca tu código qr</h1>
+            <video id="preview" class="left"></video>
+
+            <a href="file:///C:/xampp/htdocs/Tareasparaeljueves/DCU-QRCode/QRCode.html" class="waves-effect waves-light btn up">Crear código</a>
+        </main>
+
+        <!-- Dependencias & Código -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+        <script type="text/javascript">
+            var div;
+            
+            let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+            scanner.addListener('scan', function (content) {
+                // console.log(content);
+                div = content;
+                swal('El contenido es:', div,'success');
+            });
+            Instascan.Camera.getCameras().then(function (cameras) {
+                if (cameras.length > 0) {
+                scanner.start(cameras[0]);
+                } else {
+                console.error('No cameras found.');
+                }
+            }).catch(function (e) {
+                console.error(e);
+            });
+        </script>
+    </body>
+  </html>

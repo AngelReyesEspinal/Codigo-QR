@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Quick Response Writer</title>
+        <link rel="shortcut icon" type="image/x-icon" href="icono.ico" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+        <style>
+            body{
+                background: url('379143.jpg');
+                background-size: 100%;
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+            }
+
+            .qr-code {
+                align-content: center;
+                width: 500px;
+                margin-top:20px;
+                margin-bottom:20px;
+                border-radius: 40px 40px 40px 40px;
+            }
+    
+            .left{
+                margin-left: 450px;
+            }
+
+            .markB{
+                float: right;
+            }
+
+            .contenido{
+                color:white !important;
+                font-size: 20px!important;
+                font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+            }
+
+            .input{
+                color:white !important;
+            }
+        </style>
+    </head>
+
+    <body>
+        <main>
+            <div class="container-fluid left">
+                <div class="text-center">
+                    <img src="https://chart.googleapis.com/chart?cht=qr&chl=Hello+World&chs=160x160&chld=L|0" class="qr-code img-thumbnail img-responsive">
+                </div>
+                
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 contenido" for="content">Contenido del código:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control input" id="content" v-model="contenido" v-on:keyup="crearCodigo()">
+                        </div>
+                    </div>
+                    <div class="form-group"> 
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <a onclick="M.toast({html: 'Debes dar click derecho al código, acto seguido guardar como...'})" class="btn markB">¿Cómo lo descargo?</a>
+                            <a href="http://localhost:8080/Tareas%20para%20el%20jueves/DCU%20-%20QR%20Code/QRCodeReader.html" class="waves-effect waves-light btn">Leer QR</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+        <script>
+            function htmlEncode (value)
+            {
+                return $('<div/>').text(value).html();
+            }
+
+            new Vue({
+                el: 'main',
+                data:{
+                    contenido:'',
+                },
+                methods:{
+                    crearCodigo(){
+                        $(".qr-code").attr("src", "https://chart.googleapis.com/chart?cht=qr&chl=" + htmlEncode($("#content").val()) + "&chs=160x160&chld=L|0");
+                    }
+                }
+            }); 
+        </script>
+    </body>
+  </html>
